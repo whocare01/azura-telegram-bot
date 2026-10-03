@@ -1,6 +1,26 @@
+import os
+from threading import Thread
+from flask import Flask
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+# --- Render Web Service Keep Alive Server ---
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot is running online 24/7!"
+
+def run():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.daemon = True
+    t.start()
+
+# --- বটের মূল তথ্য ---
 BOT_TOKEN = "8606618808:AAFAYHjN1FlOIgSubv0KGTU18QUvE8gZe2w"
 CHANNEL_1 = "@A_Z_U_RA"
 
@@ -67,5 +87,6 @@ def verify_button(call):
         )
 
 if __name__ == '__main__':
+    keep_alive()  # ২৪ ঘণ্টা ফ্রিতে চালু রাখার জন্য
     print("🤖 @AZU_RA_bot is running...")
     bot.infinity_polling()
