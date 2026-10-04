@@ -21,7 +21,10 @@ def keep_alive():
     t.start()
 
 # --- বটের মূল তথ্য ---
-BOT_TOKEN = "8606618808:AAG_cdOuE92VsGCOj-hkHGZE15bHPy2Gi9M"
+import os
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "8606618808:AAG_cdOuE92VsGCOj-hkHGZE15bHPy2Gi9M")
+
 CHANNEL_1 = "@A_Z_U_RA"
 
 bot = telebot.TeleBot(BOT_TOKEN)
